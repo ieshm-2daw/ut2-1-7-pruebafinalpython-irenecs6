@@ -69,7 +69,14 @@ class Inventario:
         Si el fichero no existe, crea un inventario vacío.
         """
         # TODO: implementar la lectura del fichero JSON y la creación de objetos
-        pass
+        try:
+            #open("inventario.json", "r") as archivo:
+            pass
+        
+        #Si hay un error, lo avisamos y mandamos una lista vacia
+        except FileNotFoundError:
+            print("Error")
+            return []
 
     def guardar(self):
         """
@@ -77,21 +84,27 @@ class Inventario:
         Convierte los objetos Producto y Proveedor en diccionarios.
         """
         # TODO: recorrer self.productos y guardar los datos en formato JSON
+        open 
         for p in self.productos:
-            datos = "X"
-            json.dump
-
+            datos = {"codigo":p.codigo,"nombre":p.nombre,"precio":p.precio,"stock":p.stock}
+            json.dump(datos,"w")
+        
+        pass
+    
     def anadir_producto(self, producto, codigo, precio=None, stock=None, prov=None):
         """
         Añade un nuevo producto al inventario si el código no está repetido.
         """
         # TODO: comprobar si el código ya existe y, si no, añadirlo
         existe = False
+        #Recorro la lista y compruebo si el codigo existe
         for p in self.productos:
+            #Si existe avisa de que pruebe con otro y se sale del bucle
             if codigo == p.codigo:
                 existe = True
                 print("El codigo ya existe.Prueba con otro.")
                 break
+        #Si no existe lo añadimos
         if existe is False:
             nuevo = Producto(codigo,producto,precio,stock,prov)
             self.productos.append(nuevo)
@@ -111,11 +124,14 @@ class Inventario:
         """
         # TODO: buscar un producto por código
         existe = False
+        #Recorro la lista y compruebo si el codigo existe
         for p in self.productos:
+            #Si existe lo muestro y me salgo del bucle
             if p.codigo == codigo:
                 existe = True
                 p.__str__()
                 break
+        #Si no existe le mando None
         if existe is False:
             print("None")
 
@@ -125,18 +141,23 @@ class Inventario:
         """
         # TODO: buscar el producto y actualizar sus atributos
         existe = False
+        #Recorro la lista y compruebo si el codigo existe
         for p in self.productos:
+            #Si existe modifico los datos introducidos, lo muestro y me salgo del bucle
             if p.codigo == codigo:
                 existe = True
+                
                 if(nombre):
                     p.nombre = nombre
                 if(precio):
                     p.precio = precio
                 if(stock):
                     p.stock = stock
-            print("Modificado: ")
-            p.__str__()
-            break
+                
+                print("Modificado: ")
+                p.__str__()
+                break
+        #Si no existe avisamo al usuario
         if existe is False:
             print("Codigo del producto no encontrado.")
 
@@ -146,12 +167,15 @@ class Inventario:
         """
         # TODO: eliminar el producto de la lista
         existe = False
+        #Recorro la lista y compruebo si el codigo existe
         for p in self.productos:
+            #Si existe lo elimino y aviso al usuario
             if p.codigo == codigo:
                 existe = True
                 self.productos.remove(p)
                 print("Producto eliminado.")
                 break
+        #Si no existe aviso al usuario
         if existe is False:
             print("Producto no encontrado.")
             
@@ -161,14 +185,16 @@ class Inventario:
         """
         # TODO: devolver la suma total del valor del stock
         resultado = 0
-        suma = 0
+        suma_total = 0
+        #Recorro la lista y hago el calculo, despues se lo añado a la suma_total
+        #Son cadenas debo pasarlo a numeros...
         for p in self.productos:
             resultado = p.precio * p.stock
-            suma += resultado
-        print("Valor total: " + suma)
+            suma_total += resultado
+        #print("Valor total: " + suma_total)
         pass
         
-    def mostrar_por_proveedor(self, nombre_proveedor):
+    def mostrar_por_proveedor(self, codigo_proveedor):
         """
         Muestra todos los productos de un proveedor determinado.
         Si no existen productos de ese proveedor, mostrar un mensaje.
