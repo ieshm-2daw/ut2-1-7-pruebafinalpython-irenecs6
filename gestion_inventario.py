@@ -84,10 +84,10 @@ class Inventario:
         Convierte los objetos Producto y Proveedor en diccionarios.
         """
         # TODO: recorrer self.productos y guardar los datos en formato JSON
-        open 
-        for p in self.productos:
-            datos = {"codigo":p.codigo,"nombre":p.nombre,"precio":p.precio,"stock":p.stock}
-            json.dump(datos,"w")
+        # open 
+        # for p in self.productos:
+        #     datos = {"codigo":p.codigo,"nombre":p.nombre,"precio":p.precio,"stock":p.stock}
+        #     json.dump(datos,"w")
         
         pass
     
@@ -189,10 +189,9 @@ class Inventario:
         #Recorro la lista y hago el calculo, despues se lo añado a la suma_total
         #Son cadenas debo pasarlo a numeros...
         for p in self.productos:
-            resultado = p.precio * p.stock
+            resultado = float(p.precio) * int(p.stock)
             suma_total += resultado
-        #print("Valor total: " + suma_total)
-        pass
+        print("Valor total: ", suma_total, "€")
         
     def mostrar_por_proveedor(self, codigo_proveedor):
         """
